@@ -41,8 +41,9 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/api/v1/users/**").permitAll() // Por ahora dejamos registro público
-                        .requestMatchers("/api/v1/auth/**").permitAll()  // Login público (lo crearemos enseguida)
+                        .requestMatchers("/api/v1/users/**").permitAll()
+                        .requestMatchers("/api/v1/auth/**").permitAll()
+                        .requestMatchers(org.springframework.http.HttpMethod.GET, "/api/v1/services/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 // JWT obliga a usar peticiones sin estado, nunca sesiones (Stateless)
